@@ -6,24 +6,22 @@
 * main - adds positive numbers
 * @argc: number of arguments
 * @argv: argument
-* Return: 0 if there is a symbol in argument
+* Return: 0 on success
 */
 int main(int argc, char *argv[])
 {
-
 	/**
 	*if (argc < 2)
 	*{
 	*	printf("0\n");
 	*}
 	*/
-
 	int i, add = 0;
 
 
 	for (i = 1; i < argc; i++)
 	{
-		int j;
+		int j, num;
 
 		for (j = 0; argv[i][j] != '\0'; j++)
 		{
@@ -34,10 +32,11 @@ int main(int argc, char *argv[])
 			}
 		}
 
-		int num = atoi(argv[i]);
+		num = atoi(argv[i]);
 
 		add += num;
 	}
 
 	printf("%d\n", add);
+	return (0);
 }

@@ -4,9 +4,10 @@
 * main - prints all arguments it receives(one per line)
 * @argc: number of arguments
 * @argv: arguments themselves
+* Return: 0 on success
 */
 
-void main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	int i = 0;
 
@@ -14,4 +15,5 @@ void main(int argc, char *argv[])
 	{
 		printf("%s\n", argv[i]);
 	}
+	return (0);
 }
