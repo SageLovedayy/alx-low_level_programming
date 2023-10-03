@@ -21,6 +21,12 @@ int count_words(char *str)
 	int count = 0;
 	int in_word = 0;
 
+	if (!is_space(*str))
+	{
+		count++;
+		in_word = 1;
+	}
+
 	while (*str)
 	{
 		if (is_space(*str))
