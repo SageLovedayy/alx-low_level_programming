@@ -1,117 +1,78 @@
-#include "main.h"
 #include <stdlib.h>
+#include "main.h"
 
 /**
- * is_space - checks if a character is a space, tab or newline
- * @c: character to check
- * Return: 1 if the character is space or tab or newline; 0 otherwise
+ * count_word - helper function to count the number of words in a string
+ * @s: string to evaluate
+ *
+ * Return: number of words
  */
-int is_space(char c)
+int count_word(char *s)
 {
-	return (c == ' ' || c == '\t' || c == '\n');
-}
+	int flag, c, w;
 
-/**
-* count_words - counts number of words in a string
-* @str: input string
-* Return: Number of words in the string
-*/
-int count_words(char *str)
-{
-	int count = 0;
-	int in_word = 0;
+	flag = 0;
+	w = 0;
 
-	while (*str)
+	for (c = 0; s[c] != '\0'; c++)
 	{
-		if (!is_space(*str))
+		if (s[c] == ' ')
+			flag = 0;
+		else if (flag == 0)
 		{
-			if (!in_word)
-			{
-				count++;
-				in_word = 1;
-			}
+			flag = 1;
+			w++;
 		}
-
-		else
-		{
-			in_word = 0;
-		}
-		str++;
 	}
 
-	return (count);
+	return (w);
 }
-
 /**
- * duplicate_word - Creates a duplicate copy of a word
- * @start: starting address of the word
- * @length: length of the word
- * Return: Pointer to the duplicated word; null for failed malloc
+ * **strtow - splits a string into words
+ * @str: string to split
+ *
+ * Return: pointer to an array of strings (Success)
+ * or NULL (Error)
  */
-char *duplicate_word(char *start, int length)
-{
-	int i;
-	char *word = (char *)malloc((length + 1) * sizeof(char));
-
-	if (word == NULL)
-	{
-		return (NULL);
-	}
-
-	for (i = 0; i < length; i++)
-	{
-		word[i] = start[i];
-	}
-	word[length] = '\0';
-
-	return (word);
-}
-
-/**
-* strtow - splits a string into words
-* @str: Input string to be split
-* Return: Pointer to an array of words. NULL on failure
-*/
 char **strtow(char *str)
 {
-	int word_count, in_word, word_index;
-	char **words;
-	char *word_start;
+	char **matrix, *tmp;
+	int i, k = 0, len = 0, words, c = 0, start, end;
 
-	word_count = count_words(str);
-	in_word = word_index = 0;
-
-	if (str == NULL || *str == '\0')
-	{
+	while (*(str + len))
+		len++;
+	words = count_word(str);
+	if (words == 0)
 		return (NULL);
-	}
 
-	words = (char **)malloc((word_count + 1) * sizeof(char *));
-	if (words == NULL)
-	{
+	matrix = (char **) malloc(sizeof(char *) * (words + 1));
+	if (matrix == NULL)
 		return (NULL);
-	}
-	word_start = str;
-	while (*str)
+
+	for (i = 0; i <= len; i++)
 	{
-		if (is_space(*str))
+		if (str[i] == ' ' || str[i] == '\0')
 		{
-			if (in_word)
+			if (c)
 			{
-				words[word_index++] = duplicate_word(word_start, str - word_start);
-				in_word = 0;
+				end = i;
+				tmp = (char *) malloc(sizeof(char) * (c + 1));
+				if (tmp == NULL)
+					return (NULL);
+				while (start < end)
+					*tmp++ = str[start++];
+				*tmp = '\0';
+				matrix[k] = tmp - c;
+				k++;
+				c = 0;
 			}
-		} else if (!in_word)
-		{
-			word_start = str;
-			in_word = 1;
 		}
-		str++;
+		else if (c++ == 0)
+			start = i;
 	}
-	if (in_word)
-	{
-		words[word_index++] = duplicate_word(word_start, str - word_start);
-	}
-	words[word_index] = NULL;
-	return (words);
+
+	matrix[k] = NULL;
+
+	return (matrix);
 }
+
