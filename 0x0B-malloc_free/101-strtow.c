@@ -26,7 +26,9 @@ int count_words(char *str)
 		if (is_space(*str))
 		{
 			in_word = 0;
-		} else if (!in_word)
+		}
+
+		else if (!in_word)
 		{
 			count++;
 			in_word = 1;
