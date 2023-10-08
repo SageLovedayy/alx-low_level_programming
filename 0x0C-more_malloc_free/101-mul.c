@@ -12,10 +12,8 @@ int is_valid_number(char *str)
 {
 	while (*str)
 	{
-		if (!isdigit(*str))
-		{
+		if (*str < '0' || *str > '9')
 			return (0);
-		}
 
 		str++;
 	}
@@ -51,11 +49,11 @@ void multiply_numbers(char *num1, char *num2)
 
 	len1 = mystrlen(num1);
 	len2 = mystrlen(num2);
-	total_len = len1 + len2;
-	result = malloc((total_len + 1) * sizeof(int));
+	total_len = len1 + len2 + 1;
+	result = malloc((total_len) * sizeof(int));
 	if (result == NULL)
 		exit(1);
-	for (i = 0; i <= total_len; i++)
+	for (i = 0; i <= len1 + len2; i++)
 	{
 		result[i] = 0;
 	}
@@ -75,7 +73,7 @@ void multiply_numbers(char *num1, char *num2)
 			result[len1 + len2 + 1] += carry;
 		}
 	}
-	for (i = 0; i < total_len; i++)
+	for (i = 0; i < total_len - 1; i++)
 	{
 		if (result[i])
 			a = 1;
@@ -98,13 +96,18 @@ void multiply_numbers(char *num1, char *num2)
 */
 int main(int argc, char *argv[])
 {
-	if (argc != 3 || !is_valid_number(argv[1]) || !is_valid_number(argv[2]))
+
+	char *num1, *num2;
+
+	num1 = argv[1];
+	num2 = argv[2];
+
+	if (argc != 3 || !is_valid_number(num1) || !is_valid_number(num2))
 	{
 		printf("Error\n");
 		exit(98);
 	}
 
-
-	multiply_numbers(argv[1], argv[2]);
+	multiply_numbers(num1, num2);
 	return (0);
 }
