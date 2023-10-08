@@ -3,6 +3,8 @@
 #include <ctype.h>
 #include <stdlib.h>
 
+#define ERR_MSG "Error"
+
 /**
 * is_valid_number - checks if argument is not a number
 * @str: input string
