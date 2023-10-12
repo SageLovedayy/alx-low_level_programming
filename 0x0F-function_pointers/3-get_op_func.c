@@ -1,22 +1,27 @@
 #include "3-calc.h"
 
+/**
+* get_op_func - compares input char operator and selects function
+* @s: input
+* Return: appropriate function for operator
+*/
 int (*get_op_func(char *s))(int, int)
 {
 	int i;
 
 	op_t ops[] = {
-        	{"+", op_add},
-        	{"-", op_sub},
-        	{"*", op_mul},
-        	{"/", op_div},
-        	{"%", op_mod},
-        	{NULL, NULL}
-    	};
+		{"+", op_add},
+		{"-", op_sub},
+		{"*", op_mul},
+		{"/", op_div},
+		{"%", op_mod},
+		{NULL, NULL}
+	};
 
 	for (i = 0; ops[i].op != NULL; i++)
 	{
-		if (strcmp(ops[i].op, s) == 0) /*compares the value of ops[i].op and s returning 0 if they match*/
-			return (ops[i].f); /*returns the corresponding function if there is a match*/
+		if (strcmp(ops[i].op, s) == 0)
+			return (ops[i].f);
 	}
 
 	return (NULL); /*returns NULL if no operator is found*/
