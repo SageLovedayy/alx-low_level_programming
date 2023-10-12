@@ -4,7 +4,10 @@
 #include <stddef.h>
 
 /**
-* print_numbers - prints numbers*/
+* print_numbers - prints numbers
+* @separator: seperating char
+* @n: number of variable arguments
+*/
 void print_numbers(const char *separator, const unsigned int n, ...)
 {
 	va_list ap;
