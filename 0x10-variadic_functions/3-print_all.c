@@ -2,92 +2,63 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-
-/**
-* print_char - prints anything of specified types
-* @value: char value
-* @seperator: seperator
-*/
-void print_char(char value, const char *seperator)
-{
-	printf("%s%c", seperator, value);
-}
-
-/**
-* print_integer - prints integer
-* @value: integer value
-* @seperator: seperator
-*/
-void print_integer(int value, const char *seperator)
-{
-	printf("%s%d", seperator, value);
-}
-
-/**
-* print_float - prints float
-* @value: float value
-* @seperator: seperator
-*/
-void print_float(float value, const char *seperator)
-{
-	printf("%s%f", seperator, value);
-}
-
-/**
-* print_string - prints char
-* @value: string value
-* @seperator: seperator
-*/
-void print_string(char *value, const char *seperator)
-{
-	if (value == NULL)
-	{
-		printf("%s(nil)", seperator);
-	}
-	else
-	{
-		printf("%s%s", seperator, value);
-	}
-}
-
 /**
 * print_all - prints anything of specified types
 * @format: list of types of arguments (c, i, f and s)
 */
-void print_all(const char *format, ...)
+void print_all(const char * const format, ...)
 {
-
-
-	const char *ptr = format;
+	char char_value, *str_value;
+	int int_value;
+	float float_value;
 	char *seperator = "";
+	const char *ptr;
 
 	va_list ap;
 
 	va_start(ap, format);
 
+	ptr = format;
+
 	while (*ptr != '\0')
 	{
 		if (*ptr == 'c')
 		{
-			print_char(va_arg(ap, int), seperator);
+			char_value = va_arg(ap, int);
+			printf("%s%c", seperator, char_value);
 		}
+
 		else if (*ptr == 'i')
 		{
-			print_integer(va_arg(ap, int), seperator);
+			int_value = va_arg(ap, int);
+			printf("%s%d", seperator, int_value);
 		}
+
 		else if (*ptr == 'f')
 		{
-			print_float(va_arg(ap, double), seperator);
+			float_value = va_arg(ap, double);
+			printf("%s%f", seperator, float_value);
 		}
 		else if (*ptr == 's')
 		{
-			print_string(va_arg(ap, char *), seperator);
+			str_value = va_arg(ap, char *);
+			if (str_value == NULL)
+			{
+				printf("%s(nil)", seperator);
+			}
+			else
+			{
+				printf("%s%s", seperator, str_value);
+			}
 		}
-
 		seperator = ", ";
 		ptr++;
-	}
 
-	va_end(ap);
+		while (*ptr != '\0' && *ptr != 'c' && *ptr != 'i' && *ptr != 'f' && *ptr != 's')
+		{
+			ptr++;
+		}
+	}
 	printf("\n");
+	va_end(ap);
 }
