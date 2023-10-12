@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+* main - prints own opcodes
+* @argc: argument count
+* @argv: argument vector
+* Return: opcodes for specified no of bytes
+*/
 int main(int argc, char *argv[])
 {
 	int numbytes, i;
