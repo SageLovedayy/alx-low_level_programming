@@ -1,25 +1,20 @@
-extern printf   ; Declare printf as an external symbol
-
 section .data
-    hello db "Hello, Holberton", 0
-    format db "%s", 10, 0  ; %s is the format specifier for a string, 10 is ASCII code for newline, 0 terminates the format string
-
-
+    msg db "Hello, Holberton", 0
+    fmt db "%s", 10, 0  ; Format string: %s (string), newline (10), null terminator (0)
 
 section .text
-    global main
+    extern printf       ; Declare the printf function as an external symbol
+    global main         ; Entry point of the program
 
 main:
-    ; Call printf function
-    mov rdi, format  ; Format string
-    mov rsi, hello   ; Pointer to the string to be printed
-    xor rax, rax     ; Clear RAX register for syscall number 0 (printf)
-    call printf      ; Call printf function
+    push rbp            ; Save the base pointer
 
-    ; Exit the program
-    mov rax, 60      ; syscall: exit
-    xor rdi, rdi     ; status: 0
-    syscall
+    mov rdi, fmt        ; Format string address into rdi register
+    mov rsi, msg        ; Message address into rsi register
+    xor rax, rax        ; Clear rax register (no SIMD state)
+    call printf         ; Call printf function
 
-section .bss
-    ; Empty BSS section as printf is being used and does not require additional space
+    pop rbp             ; Restore the base pointer
+
+    xor rax, rax        ; Set return value to 0
+    ret                 ; Return from the main function
