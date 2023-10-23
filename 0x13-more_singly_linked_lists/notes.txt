@@ -1,0 +1,10 @@
+The size of size_t is platform-dependent and is designed to be big enough to represent the size of any object in memory. It is often used as the return type for the sizeof operator, which gives the size in bytes of a data type or a variable.
+
+In the C programming language, size_t is a data type used to represent the size of objects. It is an unsigned data type that is defined in the <stddef.h> header (or <cstddef> header in C++). The size_t type is commonly used with functions that deal with memory allocation and manipulation, such as malloc, calloc, realloc, and sizeof operator.
+
+%zu is the format specifier used with printf to print the value of a size_t variable.
+
+The format "[0] (nil)" is a convention used to represent a null pointer visually. The contents in the square brackets normally represents the memory address.
+In the case of a null pointer though, it is often represented as 0. (nil) is a common way of saying nothing or null in the context of pointers.
+
+
