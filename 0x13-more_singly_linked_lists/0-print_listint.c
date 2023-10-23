@@ -8,7 +8,7 @@
 */
 size_t print_listint(const listint_t *h)
 {
-	size_t num;
+	size_t nodeCount = 0;
 	const listint_t *current;
 
 	current = h;
@@ -17,8 +17,8 @@ size_t print_listint(const listint_t *h)
 	{
 		printf("%d\n", current->n);
 		current = current->next;
-		num++;
+		nodeCount++;
 	}
 
-	return (num);
+	return (nodeCount);
 }
