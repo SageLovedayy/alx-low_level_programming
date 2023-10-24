@@ -1,51 +1,55 @@
 #include "lists.h"
+#include <stdio.h>
 
 /**
- * print_listint_safe - prints a linked list
- * @head: head of linked list
- * Return: number of nodes in list
+ * print_listint_safe - function that prints a listint_t linked list.
+ * @head: pointer to head of a list.
+ *
+ * Return: Length of list (INT)
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	/* USING FLOYD'S CYCLE FINDING ALGORITHM*/
+	const listint_t *slow_p = head ,*fast_p = head;
+	size_t ele = 0;
+	int is_loop = 0;
 
-	const listint_t *slow, *fast, *temp;
-	size_t nodeCount = 0;
-	int loopDetected = 0;
-	int loopNodeCount = 0;
-
-	slow = fast = head;
-
-	while (slow != NULL && fast != NULL && fast->next != NULL)
+	while (slow_p && fast_p && fast_p->next)
 	{
-		printf("[%p] %d\n", (void *)slow, slow->n);
-		nodeCount++;
-
-		slow = slow->next;
-		fast = fast->next->next;
-
-		if (slow == fast)
+		if (!(fast_p->next->next))
+			break;
+		slow_p = slow_p->next;
+		fast_p = fast_p->next->next;
+		if (slow_p == fast_p)
 		{
-			loopDetected = 1;
+			slow_p = slow_p->next;
+			is_loop = 1;
 			break;
 		}
 	}
 
-	/*Detect loop and print associated nodes*/
-	if (loopDetected)
+	if (!is_loop)
 	{
-		temp = slow;
-
-		do {
-			printf("[%p] %d\n", (void *)temp, temp->n);
-			temp = temp->next;
-			loopNodeCount++;
-		} while (temp != slow);
-
-		printf("-> [%p] %d\n", (void *)temp, temp->n);
-		nodeCount += loopNodeCount;
-		exit(98);
+		while (head)
+		{
+			ele++;
+			printf("[%p] %d\n", (void *)head, head->n);
+			head = head->next;
+		}
+		return (ele);
 	}
 
-	return (nodeCount);
+	while (head)
+	{
+		ele++;
+		if (head == slow_p)
+		{
+			printf("[%p] %d\n", (void *)head, head->n);
+			printf("-> [%p] %d\n", (void *)head, head->next->n);
+			exit(98);
+		}
+
+		printf("[%p] %d\n", (void *)head, head->n);
+		head = head->next;
+	}
+	return (0);
 }
