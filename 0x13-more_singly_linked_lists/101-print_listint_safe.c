@@ -9,17 +9,43 @@ size_t print_listint_safe(const listint_t *head)
 {
 	/* USING FLOYD'S CYCLE FINDING ALGORITHM*/
 
-	size_t pichu = 0;
-	const listint_t *aux_node = head;
+	const listint_t *slow, *fast, *temp;
+	size_t nodeCount = 0;
+	int loopDetected = 0;
+	int loopNodeCount = 0;
 
-	if (!head)
-		exit(98);
+	slow = fast = head;
 
-	while (aux_node)
+	while (slow != NULL && fast != NULL && fast->next != NULL)
 	{
-		printf("[%p] %i\n", (void *)aux_node, aux_node->n);
-		aux_node = aux_node->next;
-		pichu++;
+		printf("[%p] %d\n", (void *)slow, slow->n);
+		nodeCount++;
+
+		slow = slow->next;
+		fast = fast->next->next;
+
+		if (slow == fast)
+		{
+			loopDetected = 1;
+			break;
+		}
 	}
-	return (pichu);
+
+	/*Detect loop and print associated nodes*/
+	if (loopDetected)
+	{
+		temp = slow;
+
+		do {
+			printf("[%p] %d\n", (void *)temp, temp->n);
+			temp = temp->next;
+			loopNodeCount++;
+		} while (temp != slow);
+
+		printf("-> [%p] %d\n", (void *)temp, temp->n);
+		nodeCount += loopNodeCount;
+		exit(98);
+	}
+
+	return (nodeCount);
 }
