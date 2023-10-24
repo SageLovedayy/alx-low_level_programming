@@ -1,18 +1,14 @@
 #include "lists.h"
 
 /**
- * print_listint_safe - prints a linked list
- * @head: head of linked list
- * Return: number of nodes in list
+ * print_listint_safe - prints a linked list safely even if it contains a loop
+ * @head: head of the linked list
+ * Return: number of nodes in the list
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	/* USING FLOYD'S CYCLE FINDING ALGORITHM*/
-
-	const listint_t *slow, *fast, *temp;
+	const listint_t *slow, *fast;
 	size_t nodeCount = 0;
-	int loopDetected = 0;
-	int loopNodeCount = 0;
 
 	slow = fast = head;
 
@@ -26,25 +22,12 @@ size_t print_listint_safe(const listint_t *head)
 
 		if (slow == fast)
 		{
-			loopDetected = 1;
-			break;
+			printf("[%p] %d\n", (void *)slow, slow->n);
+			printf("-> [%p] %d\n", (void *)fast->next, fast->next->n);
+			printf("Loop starts at [%p]\n", (void *)slow);
+			exit(98);
 		}
 	}
 
-	/*Detect loop and print associated nodes*/
-	if (loopDetected)
-	{
-		temp = slow;
-
-		do {
-			printf("[%p] %d\n", (void *)temp, temp->n);
-			temp = temp->next;
-			loopNodeCount++;
-		} while (temp != slow);
-
-		printf("-> [%p] %d\n", (void *)temp, temp->n);
-		nodeCount += loopNodeCount;
-		exit(98);
-	}
 	return (nodeCount);
 }
