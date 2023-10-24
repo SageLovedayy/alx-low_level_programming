@@ -46,6 +46,5 @@ size_t print_listint_safe(const listint_t *head)
 		nodeCount += loopNodeCount;
 		exit(98);
 	}
-
 	return (nodeCount);
 }
