@@ -7,54 +7,36 @@
  */
 size_t free_listint_safe(listint_t **h)
 {
-	listint_t *slow, *fast, *temp;
-	size_t nodeCount = 0;
-	listint_t *freedNodes[100];
-	size_t i;
+	size_t len = 0;
+	int diff;
+	listint_t *temp;
 
-	slow = fast = *h;
-	/* Detect loop */
-	while (slow != NULL && fast != NULL && fast->next != NULL)
+	if (!h || !*h)
+		return (0);
+
+	while (*h)
 	{
-		slow = slow->next;
-		fast = fast->next->next;
-		/*Free nodes while detecting loop*/
-		if (slow == fast)
+		diff = *h - (*h)->next;
+		if (diff > 0)
 		{
-			slow = *h;
-			while (slow != fast)
-			{
-				temp = slow;
-				freedNodes[nodeCount++] = temp;
-				slow = slow->next;
-				free(temp);
-			}
-			/* move fast pointer one step ahead */
-			fast = fast->next;
-			/*Free the loop node */
-			freedNodes[nodeCount++] = slow;
-			free(slow);
-			/*Set head to NULL to indicate the list is freed */
-			*h = NULL;
-
-			for (i = 0; i < nodeCount; ++i)
-			{
-				printf("[%p] %d\n", (void *)freedNodes[i], freedNodes[i]->n);
-			}
-			return (nodeCount);
+			temp = (*h)->next;
+			free(*h);
+			*h = temp;
+			len++;
 		}
+
+		else
+		{
+			free('h');
+			*h = NULL;
+			len++;
+			break;
+		}
+
 	}
-	/* No loop, free the entire list normally */
-	while (*h != NULL)
-	{
-		temp = *h;
-		*h = (*h)->next;
-		freedNodes[nodeCount++] = temp;
-		free(temp);
-	}
-	for (i = 0; i < nodeCount; ++i)
-	{
-		printf("[%p] %d\n", (void *)freedNodes[i], freedNodes[i]->n);
-	}
-	return (nodeCount);
+
+	*h = NULL;
+
+	return (len);
+
 }
