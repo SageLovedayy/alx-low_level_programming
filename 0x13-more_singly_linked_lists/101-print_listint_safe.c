@@ -1,77 +1,75 @@
 #include "lists.h"
 
-size_t looped_listint_len(const listint_t *head);
-size_t print_listint_safe(const listint_t *head);
-
 /**
- * looped_listint_len - add descr
- * @head: pointer to head of linked list
- * Return: Number of unique nodes, 0 if list is not looped
+ * caculate_loop_length - Calculates the length of a looped linked list.
+ * @head: Pointer to the head of the linked list.
+ * Return: Number of unique nodes in the loop, 0 if list is not looped.
  */
-size_t looped_listint_len(const listint_t *head)
+size_t caculate_loop_length(const listint_t *head)
 {
-	const listint_t *tortoise, *hare;
-	size_t nodes = 1;
+	const listint_t *slow_ptr, *fast_ptr;
+	size_t nodes_count = 1;
 
+	/* Check for empty list or list with only one node */
 	if (head == NULL || head->next == NULL)
-		return (0);
+		return 0;
 
-	tortoise = head->next;
-	hare = (head->next)->next;
+	/* Initialize slow and fast pointers */
+	slow_ptr = head->next;
+	fast_ptr = (head->next)->next;
 
-	while (hare)
+	/* Detect loop using Floyd's cycle-finding algorithm */
+	while (fast_ptr)
 	{
-		if (tortoise == hare)
+		if (slow_ptr == fast_ptr)
 		{
-			tortoise = head;
-			while (tortoise != hare)
+			/* Loop detected, calculate the number of nodes in the loop */
+			slow_ptr = head;
+			while (slow_ptr != fast_ptr)
 			{
-				nodes++;
-				tortoise = tortoise->next;
-				hare = hare->next;
+				nodes_count++;
+				slow_ptr = slow_ptr->next;
+				fast_ptr = fast_ptr->next;
 			}
 
-			tortoise = tortoise->next;
+			/* Move slow pointer until it reaches the start of the loop */
+			slow_ptr = slow_ptr->next;
 
-			while (tortoise != hare)
+			/* Count nodes in the loop */
+			while (slow_ptr != fast_ptr)
 			{
-				nodes++;
-				tortoise = tortoise->next;
+				nodes_count++;
+				slow_ptr = slow_ptr->next;
 			}
 
-			return (nodes);
+			return nodes_count;
 		}
 
-		tortoise = tortoise->next;
-		hare = (hare->next)->next;
+		/* Move slow pointer one step and fast pointer two steps */
+		slow_ptr = slow_ptr->next;
+		fast_ptr = (fast_ptr->next)->next;
 	}
 
-	return (0);
+	/* No loop detected */
+	return 0;
 }
 
 /**
- * print_listint_safe - prints a linked list
- * @head: head of linked list
- * Return: number of nodes in list
+ * print_listint_safe - Safely prints a linked list, detecting loops.
+ * @head: Pointer to the head of the linked list.
+ * Return: Number of nodes in the list.
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	size_t nodes, index = 0;
+	size_t nodes_count, index = 0;
 
-	nodes = looped_listint_len(head);
+	/* Calculate the number of nodes in the looped list */
+	nodes_count = caculate_loop_length(head);
 
-	if (nodes == 0)
+	/* Loop detected, print nodes in the loop */
+	if (nodes_count != 0)
 	{
-		for (; head != NULL; nodes++)
-		{
-			printf("[%p] %d\n", (void *)head, head->n);
-			head = head->next;
-		}
-	}
-
-	else
-	{
-		for (index = 0; index < nodes; index++)
+		for (index = 0; index < nodes_count; index++)
 		{
 			printf("[%p] %d\n", (void *)head, head->n);
 			head = head->next;
@@ -79,7 +77,15 @@ size_t print_listint_safe(const listint_t *head)
 
 		printf("-> [%p] %d\n", (void *)head, head->n);
 	}
+	/* No loop detected, print all nodes in the list */
+	else
+	{
+		for (; head != NULL; nodes_count++)
+		{
+			printf("[%p] %d\n", (void *)head, head->n);
+			head = head->next;
+		}
+	}
 
-	return (nodes);
-
+	return nodes_count;
 }
