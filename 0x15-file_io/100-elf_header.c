@@ -219,8 +219,8 @@ void printEntryPoint(unsigned long int entryPoint, unsigned char elfClass
 		printf("%#lx\n", entryPoint);
 	else
 		printf("Unknown ELF class\n");
+	(void)elfData;
 }
-
 
 /**
 * closeFile - add descr
