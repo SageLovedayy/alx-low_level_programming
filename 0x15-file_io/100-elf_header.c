@@ -1,5 +1,11 @@
 #include "main.h"
 
+/**
+* main - add descr
+* @argc: add descr
+* @argv: add descr
+* Return: add descr
+*/
 int main(int argc, char *argv[])
 {
 	int fileDescriptor, bytesRead, i;
@@ -43,6 +49,10 @@ int main(int argc, char *argv[])
 	return (0);
 }
 
+/**
+* validateElfFile - add descr
+* @magic: add descr
+*/
 void validateElfFile(const ElfMagicNumber magic)
 {
 	if (magic[EI_MAG0] != ELFMAG0 || magic[EI_MAG1] != ELFMAG1 ||
@@ -52,6 +62,10 @@ void validateElfFile(const ElfMagicNumber magic)
 	}
 }
 
+/**
+* printElfMagicNumber - add descr
+* @magic: add descr
+*/
 void printElfMagicNumber(const ElfMagicNumber magic)
 {
 	int i;
@@ -62,6 +76,11 @@ void printElfMagicNumber(const ElfMagicNumber magic)
 		printf("%02x%s", magic[i], (i == EI_NIDENT - 1) ? "\n" : " ");
 }
 
+
+/**
+* printElfClass - add descr
+* @elfClass: add descr
+*/
 void printElfClass(unsigned char elfClass)
 {
 	printf("  Class:                             ");
@@ -82,6 +101,11 @@ void printElfClass(unsigned char elfClass)
 	}
 }
 
+
+/**
+* printElfData - add descr
+* @elfData: add descr
+*/
 void printElfData(unsigned char elfData)
 {
 	printf("  Data:                              ");
@@ -102,6 +126,10 @@ void printElfData(unsigned char elfData)
 	}
 }
 
+/**
+* printElfVersion - add descr
+* @elfVersion: add descr
+*/
 void printElfVersion(unsigned char elfVersion)
 {
 	printf("  Version:                           %d", elfVersion);
@@ -111,6 +139,10 @@ void printElfVersion(unsigned char elfVersion)
 		printf("\n");
 }
 
+/**
+* printOsAbi - add descr
+* @osAbi: add descr
+*/
 void printOsAbi(unsigned char osAbi)
 {
 	printf("  OS/ABI:                            ");
@@ -129,11 +161,20 @@ void printOsAbi(unsigned char osAbi)
 	}
 }
 
+
+/**
+* printAbiVersion - add descr
+* @abiVersion: add descr
+*/
 void printAbiVersion(unsigned char abiVersion)
 {
 	printf("  ABI Version:                       %d\n", abiVersion);
 }
 
+/**
+* printElfType - add descr
+* @elfType: add descr
+*/
 void printElfType(unsigned int elfType)
 {
 	printf("  Type:                              ");
@@ -161,6 +202,13 @@ void printElfType(unsigned int elfType)
 	}
 }
 
+
+/**
+* printEntryPoint - add descr
+* @entryPoint: add descr
+* @elfClass: add descr
+* @elfData: add descr
+*/
 void printEntryPoint(unsigned long int entryPoint, unsigned char elfClass
 , unsigned char elfData)
 {
@@ -173,6 +221,11 @@ void printEntryPoint(unsigned long int entryPoint, unsigned char elfClass
 		printf("Unknown ELF class\n");
 }
 
+
+/**
+* closeFile - add descr
+* @fileDescriptor: add descr
+*/
 void closeFile(int fileDescriptor)
 {
 	if (close(fileDescriptor) == -1)
