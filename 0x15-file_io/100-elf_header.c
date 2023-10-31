@@ -175,7 +175,8 @@ void printEntryPoint(unsigned long int entryPoint, unsigned char elfClass
 
 void closeFile(int fileDescriptor)
 {
-	if (close(fileDescriptor) == -1) {
+	if (close(fileDescriptor) == -1)
+	{
 		dprintf(STDERR_FILENO, "Error: Can't close file descriptor\n");
 		exit(98);
 	}
