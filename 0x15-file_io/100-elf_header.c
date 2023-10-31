@@ -1,23 +1,4 @@
-#include <elf.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef unsigned char ElfMagicNumber[EI_NIDENT];
-
-void validateElfFile(const ElfMagicNumber magic);
-void printElfMagicNumber(const ElfMagicNumber magic);
-void printElfClass(unsigned char elfClass);
-void printElfData(unsigned char elfData);
-void printElfVersion(unsigned char elfVersion);
-void printOsAbi(unsigned char osAbi);
-void printAbiVersion(unsigned char abiVersion);
-void printElfType(unsigned int elfType);
-void printEntryPoint(unsigned long int entryPoint, unsigned char elfClass, unsigned char elfData);
-void closeFile(int fileDescriptor);
+#include "main.h"
 
 int main(int argc, char *argv[])
 {
@@ -30,14 +11,12 @@ int main(int argc, char *argv[])
 		dprintf(STDERR_FILENO, "Usage: %s elf_filename\n", argv[0]);
 		exit(98);
 	}
-
 	fileDescriptor = open(argv[1], O_RDONLY);
 	if (fileDescriptor == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
 		exit(98);
 	}
-
 	bytesRead = read(fileDescriptor, &elfHeader, sizeof(Elf64_Ehdr));
 	if (bytesRead == -1)
 	{
@@ -45,7 +24,6 @@ int main(int argc, char *argv[])
 		dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
 		exit(98);
 	}
-
 	for (i = 0; i < EI_NIDENT; i++)
 		magic[i] = elfHeader.e_ident[i];
 
@@ -77,15 +55,18 @@ void validateElfFile(const ElfMagicNumber magic)
 void printElfMagicNumber(const ElfMagicNumber magic)
 {
 	int i;
+
 	printf("  Magic:   ");
 
 	for (i = 0; i < EI_NIDENT; i++)
 		printf("%02x%s", magic[i], (i == EI_NIDENT - 1) ? "\n" : " ");
 }
 
-void printElfClass(unsigned char elfClass) {
+void printElfClass(unsigned char elfClass)
+{
 	printf("  Class:                             ");
-	switch (elfClass) {
+	switch (elfClass)
+	{
 		case ELFCLASSNONE:
 			printf("none\n");
 			break;
@@ -104,7 +85,8 @@ void printElfClass(unsigned char elfClass) {
 void printElfData(unsigned char elfData)
 {
 	printf("  Data:                              ");
-	switch (elfData) {
+	switch (elfData)
+	{
 		case ELFDATANONE:
 			printf("none\n");
 			break;
@@ -123,24 +105,24 @@ void printElfData(unsigned char elfData)
 void printElfVersion(unsigned char elfVersion)
 {
 	printf("  Version:                           %d", elfVersion);
-	if (elfVersion == EV_CURRENT) {
+	if (elfVersion == EV_CURRENT)
 		printf(" (current)\n");
-	} else {
+	else
 		printf("\n");
-	}
 }
 
 void printOsAbi(unsigned char osAbi)
 {
 	printf("  OS/ABI:                            ");
-	switch (osAbi) {
+	switch (osAbi)
+	{
 		case ELFOSABI_NONE:
 			printf("UNIX - System V\n");
 			break;
 		case ELFOSABI_HPUX:
 			printf("UNIX - HP-UX\n");
 			break;
-		// Add other cases for different OS/ABI values
+
 		default:
 			printf("<unknown: %x>\n", osAbi);
 			break;
@@ -156,7 +138,8 @@ void printElfType(unsigned int elfType)
 {
 	printf("  Type:                              ");
 
-	switch (elfType) {
+	switch (elfType)
+	{
 		case ET_NONE:
 			printf("NONE (None)\n");
 			break;
@@ -178,16 +161,16 @@ void printElfType(unsigned int elfType)
 	}
 }
 
-void printEntryPoint(unsigned long int entryPoint, unsigned char elfClass, unsigned char elfData)
+void printEntryPoint(unsigned long int entryPoint, unsigned char elfClass
+, unsigned char elfData)
 {
 	printf("  Entry point address:               ");
-	if (elfClass == ELFCLASS32) {
+	if (elfClass == ELFCLASS32)
 		printf("%#x\n", (unsigned int)entryPoint);
-	} else if (elfClass == ELFCLASS64) {
+	else if (elfClass == ELFCLASS64)
 		printf("%#lx\n", entryPoint);
-	} else {
+	else
 		printf("Unknown ELF class\n");
-	}
 }
 
 void closeFile(int fileDescriptor)
