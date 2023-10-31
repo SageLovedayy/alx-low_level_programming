@@ -23,5 +23,6 @@ int append_text_to_file(const char *filename, char *text_content);
 int copyFiles(const char *file_from, const char *file_to);
 void handleError(int error_code, const char *file_name);
 int main(int argc, char *argv[]);
+void displayElfHeaderInfo(const Elf64_Ehdr *elfHeader);
 
 #endif /*main.h*/
