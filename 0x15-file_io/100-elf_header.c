@@ -207,8 +207,10 @@ void printElfType(unsigned int elfType)
 * printEntryPoint - add descr
 * @entryPoint: add descr
 * @elfClass: add descr
+* @elfData: add descr
 */
-void printEntryPoint(unsigned long int entryPoint, unsigned char elfClass)
+void printEntryPoint(unsigned long int entryPoint, unsigned char elfClass
+, unsigned char elfData)
 {
 	printf("  Entry point address:               ");
 	if (elfClass == ELFCLASS32)
@@ -217,6 +219,7 @@ void printEntryPoint(unsigned long int entryPoint, unsigned char elfClass)
 		printf("%#lx\n", entryPoint);
 	else
 		printf("Unknown ELF class\n");
+	(void)elfData;
 }
 
 /**
