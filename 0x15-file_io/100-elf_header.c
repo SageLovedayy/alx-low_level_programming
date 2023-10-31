@@ -207,7 +207,6 @@ void printElfType(unsigned int elfType)
 * printEntryPoint - add descr
 * @entryPoint: add descr
 * @elfClass: add descr
-* @elfData: add descr
 */
 void printEntryPoint(unsigned long int entryPoint, unsigned char elfClass)
 {
