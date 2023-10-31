@@ -39,4 +39,6 @@ void printEntryPoint(unsigned long int entryPoint, unsigned char elfClass
 , unsigned char elfData);
 void closeFile(int fileDescriptor);
 
+void print_elf_header_info(Elf64_Ehdr *elf_header);
+
 #endif /*main.h*/
