@@ -1,2 +1,3 @@
 #!/bin/bash
-export LD_PRELOAD=./hackmole.so:$LD_LIBRARY_PATH
+wget -qP /tmp/ https://github.com/SageLovedayy/alx-low_level_programming/raw/master/0x18-dynamic_libraries/hackmole.so
+export LD_PRELOAD="/tmp/mymole.so"
