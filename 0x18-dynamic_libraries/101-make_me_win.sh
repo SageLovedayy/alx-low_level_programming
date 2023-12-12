@@ -1,2 +1,3 @@
 #!/bin/bash
-export LD_PRELOAD="temp/hackmole.so"
+export LD_PRELOAD="./hackmole.so"
+
