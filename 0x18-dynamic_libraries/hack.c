@@ -1,7 +1,7 @@
 static int val = 0;
 
 int rand(void){
-	int luck[] = {8, 8, 7, 9, 23, 74};
+	int luck[] = {9, 8, 10, 24, 75};
 	int i = val;
 
 	val++;
