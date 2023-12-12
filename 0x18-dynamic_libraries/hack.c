@@ -7,7 +7,7 @@ void initializeLuckIndex(void)
 
 int customRandomNumberGenerator(void)
 {
-	int luckyNumbers[] = {9, 8, 10, 24, 75};
+	int luckyNumbers[] = {8, 8, 7, 9, 23, 74};
 
 	const int numLuckyNumbers = sizeof(luckyNumbers) / sizeof(luckyNumbers[0]);
 
