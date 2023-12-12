@@ -1,12 +1,21 @@
-static int val = 0;
+static int currentLuckIndex;
 
-int rand(void){
-	int luck[] = {8, 8, 7, 9, 23, 74};
-	int i = val;
+void initializeLuckIndex(void)
+{
+	currentLuckIndex = 0;
+}
 
-	val++;
-	if (val >= 6)
-		val = 0;
+int customRandomNumberGenerator(void)
+{
+	int luckyNumbers[] = {9, 8, 10, 24, 75};
 
-	return luck[i];
+	const int numLuckyNumbers = sizeof(luckyNumbers) / sizeof(luckyNumbers[0]);
+
+	initializeLuckIndex();
+
+	int result = luckyNumbers[currentLuckIndex];
+
+	currentLuckIndex = (currentLuckIndex + 1) % numLuckyNumbers;
+
+	return (result + 9);
 }
