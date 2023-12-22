@@ -10,12 +10,12 @@
  */
 int main(void)
 {
-    hash_table_t *ht;
+	hash_table_t *ht;
 
-    ht = hash_table_create(1024);
-    hash_table_set(ht, "betty", "cool");
-    hash_table_set(ht, "hetairas", "value1");
-    hash_table_set(ht, "mentioner", "value2");
-    hash_table_set(ht, "heliotropes", "value3");
-    return (EXIT_SUCCESS);
+	ht = hash_table_create(1024);
+	hash_table_set(ht, "betty", "cool");
+	hash_table_set(ht, "hetairas", "value1");
+	hash_table_set(ht, "mentioner", "value2");
+	hash_table_set(ht, "heliotropes", "value3");
+	return (EXIT_SUCCESS);
 }
