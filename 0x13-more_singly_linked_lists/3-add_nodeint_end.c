@@ -19,7 +19,7 @@ listint_t *add_nodeint_end(listint_t **head, const int n)
 	newNode->next = NULL; /*since new node will be last node,*/
 	/*it has to point to NULL*/
 
-	if (*head == NULL)
+	if (*head == NULL) /*check if the first node is the only node*/
 		*head = newNode;
 
 	else

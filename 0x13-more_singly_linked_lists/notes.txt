@@ -1,4 +1,6 @@
-The size of size_t is platform-dependent and is designed to be big enough to represent the size of any object in memory. It is often used as the return type for the sizeof operator, which gives the size in bytes of a data type or a variable.
+The size of size_t is platform-dependent and is designed to be big enough to represent the size of any object in memory.
+It is often used as the return type for the sizeof operator, which gives the size in bytes of a data type or a variable.
+
 
 In the C programming language, size_t is a data type used to represent the size of objects. It is an unsigned data type that is defined in the <stddef.h> header (or <cstddef> header in C++). The size_t type is commonly used with functions that deal with memory allocation and manipulation, such as malloc, calloc, realloc, and sizeof operator.
 
@@ -6,5 +8,57 @@ In the C programming language, size_t is a data type used to represent the size 
 
 The format "[0] (nil)" is a convention used to represent a null pointer visually. The contents in the square brackets normally represents the memory address.
 In the case of a null pointer though, it is often represented as 0. (nil) is a common way of saying nothing or null in the context of pointers.
+
+
+1. Create node template - Nodes are just structs with a pointer to the next node as the last element. e.g
+struct Node
+{
+	char *name;
+	int age;
+	int score;
+	struct Node *next; //This is a pointer to a struct Node. It is called next.
+};
+
+2. Declare node
+
+3. Allocate memory space using malloc e.g
+malloc(sizeof(struct Node));
+
+4. Assign values to the node
+
+Note that head is just a pointer to the first node in the linked list
+
+
+
+typedef struct node {
+	int age;
+	struct node *next;
+} node;
+
+node *firstNode;
+
+firstNode = (node *)malloc(sizeof(node));
+secondNode = (node *)malloc(sizeof(node));
+lastNode = (node *)malloc(sizeof(node));
+
+if (firstNode == NULL)
+	return(NULL);
+
+firstNode->age = 54;
+firstNode->next = secondNode;
+secondNode->age = 17;
+secondNode->next = lastNode;
+lastNode->age = 4;
+lastNode->next = NULL;
+
+node *start = malloc(sizeof(node));
+/*check allocation*/
+
+start->next = firstNode;
+
+
+
+
+
 
 

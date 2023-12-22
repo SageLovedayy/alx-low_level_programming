@@ -2,7 +2,7 @@
 
 /**
  * caculate_loop_length - Calculates the length of a looped linked list.
- * @head: Pointer to the head of the linked list.
+ * @head: Pointer to the first node of the linked list.
  * Return: Number of unique nodes in the loop, 0 if list is not looped.
  */
 size_t caculate_loop_length(const listint_t *head)
@@ -45,6 +45,8 @@ size_t caculate_loop_length(const listint_t *head)
 		slow_ptr = slow_ptr->next;
 		fast_ptr = (fast_ptr->next)->next;
 	}
+
+
 	/* No loop detected */
 	return (0);
 }

@@ -9,10 +9,6 @@ void print_numbers(const char *separator, const unsigned int n, ...);
 
 void print_strings(const char *separator, const unsigned int n, ...);
 
-void print_char(char value, const char *seperator);
-void print_integer(int value, const char *seperator);
-void print_float(float value, const char *seperator);
-void print_string(char *value, const char *seperator);
 void print_all(const char * const format, ...);
 
 #endif /* VARIADIC_FUNCTIONS_H */

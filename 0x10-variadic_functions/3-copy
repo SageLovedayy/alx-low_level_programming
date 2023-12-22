@@ -3,61 +3,48 @@
 #include <stdarg.h>
 
 /**
-* print_all - prints anything of specified types
-* @format: list of types of arguments (c, i, f and s)
-*/
+ * print_all - prints anything of specified types
+ * @format: list of types of arguments (c, i, f, and s)
+ * Description: This function takes a variable number of arguments
+ * based on the format string and prints them.
+ */
 void print_all(const char * const format, ...)
 {
-	char char_value, *str_value;
-	int int_value;
-	float float_value;
-	char *seperator = "";
-	const char *ptr;
+    const char *ptr = format;
+    char *separator = "";
+    char *str;
 
-	va_list ap;
-	va_start(ap, format);
+    va_list ap;
 
-	ptr = format;
+    va_start(ap, format);
 
-	while (*ptr != '\0')
-	{
-		if (*ptr == 'c')
-		{
-			char_value = va_arg(ap, int);
-			printf("%s%c", seperator, char_value);
-		}
+    while (*ptr != '\0')
+    {
+        switch (*ptr)
+        {
+            case 'c':
+                printf("%s%c", separator, va_arg(ap, int));
+                break;
+            case 'i':
+                printf("%s%d", separator, va_arg(ap, int));
+                break;
+            case 'f':
+                printf("%s%f", separator, va_arg(ap, double));
+                break;
+            case 's':
+                str = va_arg(ap, char *);
+                if (!str)
+                    str = "(nil)";
+                printf("%s%s", separator, str);
+                break;
+            default:
+                continue;
+        }
 
-		else if (*ptr == 'i')
-		{
-			int_value = va_arg(ap, int);
-			printf("%s%d", seperator, int_value);
-		}
+        separator = ", ";
+        ptr++;
+    }
 
-		else if (*ptr == 'f')
-		{
-			float_value = va_arg(ap, double);
-			printf("%s%f", seperator, float_value);
-		}
-		else if (*ptr == 's')
-		{
-			str_value = va_arg(ap, char *);
-			if (str_value == NULL)
-			{
-				printf("%s(nil)", seperator);
-			}
-			else
-			{
-				printf("%s%s", seperator, str_value);
-			}
-		}
-		seperator = ", ";
-		ptr++;
-
-		while (*ptr != '\0' && *ptr != 'c' && *ptr != 'i' && *ptr != 'f' && *ptr != 's')
-		{
-			ptr++;
-		}
-	}
-	printf("\n");
-	va_end(ap);
+    va_end(ap);
+    printf("\n");
 }
