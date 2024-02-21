@@ -1,0 +1,26 @@
+# Makefile
+
+# Compiler
+CC = gcc
+# Source files
+SRC = main.c school.c
+# Object files
+OBJ = $(SRC:.c=.o)
+# Target executable
+NAME = school
+# Program to delete files
+RM = rm -f
+
+# Build rule for the target executable
+all: $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
+# Target to clean up generated files
+clean:
+	$(RM) *~ $(NAME)
+# Target to clean up object files
+oclean:
+	$(RM) $(OBJ)
+# Target to clean everything
+fclean: clean oclean
+# Target to force recompile everything
+re: oclean all
