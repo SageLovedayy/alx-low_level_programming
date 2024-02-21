@@ -10,11 +10,11 @@ SRC = main.c school.c
 OBJ = $(SRC:.c=.o)
 # Target executable
 NAME = school
-# Phony target
-.PHONY: all clean oclean fclean re
+# Program to delete files
+RM = rm -f
 
-# Build rule for the target executable, requires m.h to run
-all: $(OBJ) m.h
+# Build rule for the target executable
+all: $(OBJ)
 	$(CC)  $(CFLAGS) $(OBJ) -o $(NAME)
 # Target to clean up generated files
 clean:
