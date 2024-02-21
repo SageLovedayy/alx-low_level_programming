@@ -10,7 +10,7 @@ SRC = main.c school.c
 OBJ = $(SRC:.c=.o)
 # Target executable
 NAME = school
-# Phony target
+# Phony target to mark the following rules as not filenames
 .PHONY: all clean oclean fclean re
 
 # Build rule for the target executable, requires m.h to run
@@ -25,4 +25,4 @@ oclean:
 # Target to clean everything
 fclean: clean oclean
 # Target to force recompile everything
-re: oclean all
+re: fclean all

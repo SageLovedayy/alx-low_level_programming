@@ -23,4 +23,4 @@ oclean:
 # Target to clean everything
 fclean: clean oclean
 # Target to force recompile everything
-re: oclean all
+re: fclean all
