@@ -2,27 +2,43 @@
 
 # Compiler
 CC = gcc
+
 # Compiler flags
-CFLAGS = -Wall -Werror -Wextra -pedantic
+FLAGS = -Wall -Werror -Wextra -pedantic
+
 # Source files
 SRC = main.c school.c
+
 # Object files
-OBJ = $(SRC:.c=.o)
+OBJ := $(patsubst %.c,%.o,$(SRC))
+
 # Target executable
 NAME = school
+
 # Program to delete files
 RM = rm -f
 
 # Build rule for the target executable
-all: $(OBJ)
-	$(CC)  $(CFLAGS) $(OBJ) -o $(NAME)
+all: $(NAME)
+
+# Rule to compile source files into object files
+%.o: %.c m.h
+	$(CC) $(FLAGS) -c $< -o $@
+
+# Rule to link object files into the executable
+$(NAME): $(OBJ)
+	$(CC) $(OBJ) -o $@
+
 # Target to clean up generated files
 clean:
 	$(RM) *~ $(NAME)
-# Target to clean up object files
+
+# Target to delete the object files
 oclean:
 	$(RM) $(OBJ)
-# Target to clean everything
+
+# Target to delete all generated files
 fclean: clean oclean
-# Target to force recompile everything
+
+# Target to force recompilation of all source files
 re: fclean all
