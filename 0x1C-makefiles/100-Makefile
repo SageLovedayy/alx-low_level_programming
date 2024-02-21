@@ -18,10 +18,10 @@ all: $(OBJ) m.h
 	$(CC)  $(CFLAGS) $(OBJ) -o $(NAME)
 # Target to clean up generated files
 clean:
-	$(RM) *~ $(NAME)
+	rm -f *~ $(NAME)
 # Target to clean up object files
 oclean:
-	$(RM) $(OBJ)
+	rm -f $(OBJ)
 # Target to clean everything
 fclean: clean oclean
 # Target to force recompile everything
