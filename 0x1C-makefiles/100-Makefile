@@ -15,13 +15,13 @@ NAME = school
 
 # Build rule for the target executable with m.h required
 all: $(OBJ) m.h
-	$(CC)  $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(OBJ) -o $(NAME)
 # Target to clean up generated files
 clean:
-	rm -f *~ $(NAME)
+	$(RM) *~ $(NAME)
 # Target to clean up object files
 oclean:
-	rm -f $(OBJ)
+	$(RM) $(OBJ)
 # Target to clean everything
 fclean: clean oclean
 # Target to force recompile everything
