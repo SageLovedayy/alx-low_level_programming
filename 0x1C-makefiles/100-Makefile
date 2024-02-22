@@ -14,7 +14,7 @@ NAME = school
 .PHONY: all clean oclean fclean re
 
 # Build rule for the target executable with m.h required
-all: $(OBJ) m.h
+all: m.h $(OBJ)
 	$(CC) $(OBJ) -o $(NAME)
 # Target to clean up generated files
 clean:
